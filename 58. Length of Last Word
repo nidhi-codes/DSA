@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int n = s.length();
+        vector<string> s1;
+        string temp = "";
+        for(int i=0;i<n;i++){
+            if(s[i] == ' '){
+                if(!temp.empty()){
+                    s1.push_back(temp);
+                    temp = "";
+                }   
+            }
+            else if(s[i] != ' '){
+                temp += s[i];
+            }
+        }
+        if(!temp.empty()){
+            s1.push_back(temp);
+        }
+        
+        int n1 = s1.size();
+        string s2 = s1[n1-1];
+        int length = s2.length();
+        return length;
+        
+    }
+};
