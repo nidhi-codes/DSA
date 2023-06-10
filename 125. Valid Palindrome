@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int n = s.length();
+        string s1 = "";
+        string reverse = "";
+
+        //upper case into lower case
+        for(int i=0; i<n; i++){
+            if(s[i] >= 65 && s[i] <=90){
+                s[i] += 32;
+             }
+        }
+
+        //copying alphanumeri of s into s1
+        for(int i=0; i<n; i++){
+            if(s[i] >= 97 && s[i] <= 122 && s[i] || s[i]>=48 && s[i]<=57){
+                s1 += s[i];
+            }
+        }
+
+        int n1 = s1.length();
+        //reversing s1
+        for(int i=0, j=n1-1; i<n1; i++,j--){
+            reverse += s1[j];
+        }
+
+        if(s1 != reverse){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+};
