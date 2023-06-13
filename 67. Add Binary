@@ -1,0 +1,59 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int n = a.length();
+        int n1 = b.length();
+        if(n<n1){
+            while(n!=n1){
+                a = '0' + a;
+                n++;
+            }
+        }
+        else if(n1<n){
+            while(n1!=n){
+                b = '0' + b;
+                n1++;
+            }
+        }
+        int carry = 0;
+        string ans = "";
+        for(int i=n-1; i>=0; i--){
+            if(a[i] == '1' && b[i] == '1'){
+                if(carry == 1){
+                    ans = '1' + ans;
+                    carry = 1;
+                }
+                else if(carry == 0){
+                    ans = '0' + ans;
+                    carry = 1;
+                }
+                
+            }
+            else if(a[i] == '0' && b[i] =='1' || a[i] == '1' && b[i] =='0'){
+                if(carry == 1){
+                    ans = '0' + ans;
+                    carry = 1;
+                }
+                else if(carry == 0){
+                    ans = '1' + ans;
+                    carry = 0;
+                }
+            }
+            else if(a[i] == '0' && b[i] == '0'){
+                if(carry == 1){
+                    ans = '1' + ans;
+                    carry = 0;
+                }
+                else if(carry == 0){
+                    ans = '0' + ans;
+                    carry = 0;
+                }
+            }
+        }
+        if(carry == 1){
+            ans = '1' + ans;
+            return ans;
+        }
+        return ans;
+    }
+};
