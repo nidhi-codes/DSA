@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        //non-optimize approach
+        // sort(s.begin(),s.end());
+        // sort(t.begin(),t.end());
+        // return(s==t);
+
+        //optimize approach
+        if(s.length() != t.length()){
+            return false;
+        }
+
+        vector<int>freq(26,0);
+        for(int i=0; i<s.length();i++){
+            freq[s[i] - 'a']++;
+        }
+
+        vector<int>freq1(26,0);
+            for(int i=0;i<t.length();i++){
+                freq1[t[i] - 'a']++;
+            }
+
+        return(freq == freq1);        
+
+    }
+};
