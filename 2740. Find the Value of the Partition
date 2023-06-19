@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int findValueOfPartition(vector<int>& nums) {
+      int n = nums.size();
+      sort(nums.begin(),nums.end());
+      int min = INT_MAX;
+      int diff;
+      for(int i=0;i<n-1;i++){
+          diff = abs(nums[i] - nums[i+1]);
+          if(diff < min){
+              min = diff;
+          }
+      }
+      return min;
+    }
+};
