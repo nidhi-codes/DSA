@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        //O(n^3)
+        // int sum = INT_MIN;
+        // int temp = 0;
+        // int n=nums.size();
+        // for(int i=0;i<n;i++){
+        //     for(int j=i;j<n;j++){
+        //         for(int k=i;k<=j;k++){
+        //             temp += nums[k];
+        //         }
+        //         if(temp > sum){
+        //             sum = temp;
+        //         }
+        //         temp = 0;
+        //     }
+        // }
+        // return sum;
+
+        //Kadane's algorithm 
+
+        //initialization
+        int sum = 0;
+        int maximum = nums[0];   
+        for(int i=0;i<nums.size();i++){
+            sum += nums[i];                  //1
+            maximum = max(maximum,sum);      //2
+            
+            if(sum<0){                       //3
+                sum=0;
+            }
+        }
+        return maximum;
+    }
+};
