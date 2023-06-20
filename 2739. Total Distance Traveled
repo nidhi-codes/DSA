@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int distanceTraveled(int mainTank, int additionalTank) {
+        int i=0;
+        int temp = mainTank;
+        while(temp>=5 && additionalTank > 0){
+            temp = temp-5+1;
+            additionalTank--;
+            i++;
+        }
+        int ans = (mainTank + i)*10;
+        return ans;
+    }
+};
