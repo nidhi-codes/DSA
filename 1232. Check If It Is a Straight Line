@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& c) {
+        int n = c.size();
+        if(n<=1){
+            return true;
+        }
+        else{
+            int y = (c[1][1] - c[0][1]);
+            int x = (c[1][0] - c[0][0]);
+            for(int i=1; i<n-1; i++){
+                for(int j=0; j<=0; j++){
+                    int a = (c[i+1][j+1] - c[i][j+1]);
+                    int b = (c[i+1][j] - c[i][j]);
+                    if(y*b != x*a){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+};
