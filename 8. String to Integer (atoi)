@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool  isnumeric(char c){
+        if(c>='0' && c<='9'){
+                return true;
+        }
+        return false;
+    }
+    int myAtoi(string s) {
+        
+        int n = s.length();
+        int i=0;
+        while(i<n && s[i] == ' '){
+            i++;
+        }
+        string s1 = s.substr(i);
+        int n1 = s1.length();
+        string digit = "";
+        int sign = +1;
+        if(s1[0]=='-'){
+            sign=-1;
+        }
+        long long digit1 = 0;
+
+
+        if(s1[0] == '-'|| s1[0]=='+'){
+            i=1;
+        }else{
+            i=0;
+        }
+
+        for(;i<n;i++){
+            if(s1[i]==' ' || !isnumeric(s1[i])){
+               break;
+            }
+            digit += s1[i];
+            
+        }
+        
+        
+        int n2 = digit.length();
+        
+        for(int i=0; i<n2; i++){
+            digit1 = digit1 * 10 + (digit[i] -'0') ;
+            if(sign == - 1 && -1*digit1 < INT_MIN)return INT_MIN;
+            if(sign == +1 && digit1>INT_MAX) return INT_MAX;
+        }
+
+        return (int)(sign*digit1);
+
+    }
+};
