@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int numberOfSteps(int num) {
+        int i=1;
+        int a = num;
+        while(i<=num){
+            if(a%2 == 0){
+                a = a/2;
+                if(a==0){
+                    break;
+                }
+            }
+            else{
+                a = a-1;
+            }
+            i++;
+        }
+        return i-1;
+    }
+};
