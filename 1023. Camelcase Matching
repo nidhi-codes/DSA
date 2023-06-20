@@ -1,0 +1,41 @@
+class Solution {
+public:
+   vector<bool> camelMatch(vector<string>& queries, string pattern) {
+    int n = queries.size();
+    int m = pattern.length();
+    vector<bool> ans(n, false);
+    for (int i = 0; i < n; i++) {
+        string temp = queries[i];
+        bool cap = false;
+        int j = 0;
+        int k = 0;
+        while (j < temp.length() && k < m) {
+            if (temp[j] == pattern[k]) {
+                j++;
+                k++;
+            } 
+            else {
+                if (temp[j]>=97 && temp[j]<=122) {
+                    j++;
+                } 
+                else {
+                    cap = true;
+                    break;
+                }
+            }
+        }
+        if (!cap && k == m) {
+            while (j < temp.length()) {
+                if (temp[j]>=65 && temp[j]<=90) {
+                    break;
+                }
+                j++;
+            }
+            if (j == temp.length()) {
+                ans[i] = true;
+            }
+        }
+    }
+    return ans;
+    }
+};
