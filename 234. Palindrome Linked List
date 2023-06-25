@@ -1,0 +1,25 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+    void RecursiveDisplay(Node* head){
+        string s ="";
+        Node* temp = head;
+        if(temp != NULL){
+            RecursiveDisplay(temp->next);
+            s += temp->data;
+        }
+    }
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* temp = head;
+        
+    }
+};
