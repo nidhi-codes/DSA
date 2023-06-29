@@ -25,9 +25,9 @@ public:
         }
         ListNode* p = head;
         ListNode* q = NULL;
-        int node = Length(head)-n+1;
+        int node = Length(head)-n;
      
-        int i=1;
+        int i=0;
         while(p){
            if(i==node){
                if(q!=NULL){
