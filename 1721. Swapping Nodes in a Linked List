@@ -1,0 +1,81 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int Length(ListNode* head){
+        ListNode* temp = head;
+        int len = 0;
+        while(temp){
+            len++;
+            temp = temp->next;
+        }
+        return len;
+    }
+
+    ListNode* swapNodes(ListNode* head, int k) {
+        int beginning =  k;             //kth node from the beginning of the ll
+        int end = Length(head)-k;     //kth nodee from the end of the ll
+        ListNode* p = head;
+        ListNode* q = NULL;
+
+        //length of ll and k are equal
+        if(Length(head)==k){
+            q = head;
+            for(int i=1;i<k;i++){
+                p = p->next;
+            }
+            swap(p->val,q->val);
+            return head;
+        }
+
+        //if beginning is greater than end 
+        //then p moves end times
+        //and q moves beginning times
+        if(beginning>end){
+            int i=0;
+            while(p){
+                if(i<end){
+                    q = p;
+                    p = p->next;
+                }
+                else if(i==beginning){
+                    swap(p->val,q->val);
+                    break;
+                }
+                else{
+                    q = q->next;
+                }
+                i++;
+            }
+            return head;
+        }
+        
+        //if beginning is less than end
+        //then p moves end times
+        //and q moves beginning times
+        int i=0;
+        while(p){
+            if(i<beginning){
+                q = p;
+                p = p->next;
+            }
+            else if(i==end){
+                swap(p->val,q->val);
+                break;
+            }
+            else{
+                p = p->next;
+            }
+            i++;
+        }
+        return head;
+    }
+};
