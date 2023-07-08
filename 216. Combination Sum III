@@ -1,0 +1,37 @@
+class Solution {
+public:
+    void helpme(int index , vector<int>&ds , int n , int k , vector<vector<int>>&res,vector<int>&nums ){
+        if(index == nums.size()){
+            if(n==0 && ds.size() == k ){
+                res.push_back(ds);
+            }
+            return ;
+        }
+        if(n==0){
+            if(ds.size()==k){
+                res.push_back(ds);
+            }
+            return;
+        }
+        if(nums[index]<=n){
+            ds.push_back(nums[index]);
+            helpme(index+1,ds,n-nums[index],k,res,nums);
+            ds.pop_back();
+        }
+        helpme(index+1,ds,n,k,res,nums);
+    }
+
+    vector<vector<int>> combinationSum3(int k, int n) {
+
+        vector<int>nums;
+        for(int i = 1 ; i <=9 ; i ++){
+            nums.push_back(i);
+        }
+        vector<vector<int>>res;
+        vector<int>ds;
+
+        helpme(0,ds,n,k,res,nums);
+        return res;
+        
+    }
+};
