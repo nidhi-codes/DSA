@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        int len = nums.size();
+        int ans = -1;
+        for(int i=0;i<len;i++){
+            string s1 = to_string(nums[i]);
+            sort(s1.begin(), s1.end());
+            char max1 = s1[s1.length() - 1];
+            for(int j=i+1;j<len;j++){
+                string s2 = to_string(nums[j]);
+                sort(s2.begin(), s2.end());
+                char max2 = s2[s2.length() - 1];
+                if(max1 == max2){
+                    int sum = nums[i] + nums[j];
+                    ans = max(ans, sum);
+                }
+            }
+        }
+        return ans;
+    }
+};
