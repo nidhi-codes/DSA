@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool checkRecord(string s) {
+        int len = s.length();
+
+        int ab = 0;
+        int late = 0;
+        
+        for(int i=0;i<len;i++){
+            if(s[i] == 'L'){
+                late++;
+                if(late == 3){
+                    return false;
+                }
+            }
+            else{
+                late = 0;
+                if(s[i] == 'A'){
+                    ab++;
+                    if(ab==2){
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+};
