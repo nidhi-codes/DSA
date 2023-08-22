@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        string columnTitle = "";
+    
+        while(columnNumber > 0){
+            // Decrementing by 1 to map 1-26 to 0-25
+            columnNumber -= 1;
+        
+            // Convert the least significant digit to a letter and add it to the title
+            columnTitle = static_cast<char>(columnNumber % 26 + 'A') + columnTitle;
+        
+            // Move to the next digit
+            columnNumber /= 26;
+        }
+    
+        return columnTitle;
+    }
+};
