@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> leftRightDifference(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> leftSum(n, 0), rightSum(n, 0);
+
+        // Calculate left sums
+        int runningSum = 0;
+        for(int i=0;i<n;i++){
+            leftSum[i] = runningSum;
+            runningSum += nums[i];
+        }
+
+        // Calculate right sums
+        runningSum = 0;
+        for(int i=n-1;i>=0;i--){
+            rightSum[i] = runningSum;
+            runningSum += nums[i];
+        }
+
+        // Calculate differences
+        vector<int> answer(n);
+        for (int i=0;i<n;i++){
+            answer[i] = abs(leftSum[i] - rightSum[i]);
+        }
+
+        return answer;
+    }
+};
