@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int getElementSum(vector<int>& nums){
+        int sum = 0;
+        for(int num : nums){
+            sum += num;
+        }
+        return sum;
+    }
+
+    int getDigitSum(vector<int>& nums){
+        int sum = 0;
+        for(int num : nums){
+            while (num > 0) {
+                sum += num % 10;
+                num /= 10;
+            }
+        }
+        return sum;
+    }
+
+    int differenceOfSum(vector<int>& nums) {
+        int elementSum = getElementSum(nums);
+        int digitSum = getDigitSum(nums);
+        return abs(elementSum - digitSum);
+        }
+};
