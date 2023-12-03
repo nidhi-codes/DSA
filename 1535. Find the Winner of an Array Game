@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int getWinner(vector<int>& arr, int k) {
+        int len = arr.size();
+        if(k >= len){
+            return *max_element(arr.begin(), arr.end());
+        }
+
+        int count = 0;
+        int val = arr[0];
+        for(int i=1;i<len;i++){
+            if(val < arr[i]){
+                val = arr[i];
+                count = 1;
+            }
+            else if(val > arr[i]){
+                count++;
+            }
+
+            if(count == k){
+                break;
+            }
+        }
+        return val;
+    }
+};
