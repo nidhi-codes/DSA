@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
+        // int len = nums.size();
+        // vector<int>ans(len);
+
+        // for(int i=0;i<len;i++){
+        //     int temp = 0;
+        //     for(int j=0;j<len;j++){
+        //         temp += abs(nums[i] - nums[j]);
+        //     }
+        //     ans[i] = temp;
+        // }
+        // return ans;
+
+        int len = nums.size();
+        vector<int> ans(len);
+
+        int totalSum = 0;
+        for(int i=0; i<len; i++){
+            totalSum += nums[i];
+        }
+        
+        int beforeSum = 0;
+        for(int i=0; i<len; i++){
+           int afterSum = totalSum - beforeSum - nums[i]; 
+           int elementOfAns = ((i*nums[i]) - beforeSum) + (afterSum - ((len-i-1)*nums[i]));
+           ans[i] = elementOfAns;
+           beforeSum += nums[i];
+        }
+        return ans;
+    }
+};
