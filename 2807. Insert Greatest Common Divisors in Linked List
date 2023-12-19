@@ -1,0 +1,44 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    // int gcdCalculator(int num1, int num2){
+    //     while(num1>0 && num2>0){
+    //         if(num1>num2){
+    //             num1 = num1%num2;
+    //         }
+    //         else{
+    //             num2 = num2%num1;
+    //         }
+    //     }
+    //     if(num1 == 0){
+    //         return num2;
+    //     }
+    //     return num1;
+    // }
+
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        ListNode* temp = head;
+        ListNode* tail = NULL;
+
+        while(temp){
+            tail = temp;
+            temp = temp->next;
+            if(temp){
+                int newNodeValue = __gcd(tail->val, temp->val);
+                ListNode* newNode = new ListNode(newNodeValue);
+                tail->next = newNode;
+                newNode->next = temp;
+            }
+        }
+        return head;
+    }
+};
