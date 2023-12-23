@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+        vector<int>freq(26,0);
+        int lenChars = chars.length();
+        int lenWords = words.size();
+        int count = 0;
+
+        for(int i=0;i<lenChars;i++){
+            freq[chars[i] - 'a']++;
+        }
+
+        for(int i=0;i<lenWords;i++){
+            vector<int> wordFreq(26,0);
+            for(char c : words[i]){
+                wordFreq[c - 'a']++;
+            }
+
+            bool validWord = true;
+            for(int j=0;j<26;j++){
+                if(wordFreq[j] > freq[j]){
+                    validWord = false;
+                    break;
+                }
+            }
+
+            if(validWord){
+                count += words[i].length();
+            }
+        }
+        return count;
+    }
+};
