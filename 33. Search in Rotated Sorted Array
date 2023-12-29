@@ -1,0 +1,61 @@
+class Solution {
+public:
+
+    //finding pivot element index 
+    //pivot means the smallest element in an array
+    int pivotIndex(vector<int>& nums){
+
+        int len = nums.size();
+
+        int start = 0;
+        int end = len-1;
+        int mid;
+
+        while(start<end){
+            mid = start + (end-start)/2;
+
+            if(nums[mid] > nums[end]){
+                start = mid+1;
+            }
+            else{
+                end = mid;
+            }
+        }
+        return start;
+    }
+
+    int binarySearch(vector<int>& nums, int start, int end, int target){
+
+        int mid;
+
+        while(start<=end){
+            mid = start + (end-start)/2;
+
+            if(nums[mid] == target){
+                return mid;
+            }
+            else if(nums[mid] > target){
+                end = mid-1;
+            }
+            else{
+                start = mid+1;
+            }
+        }
+
+        return -1;
+    }
+
+
+    int search(vector<int>& nums, int target) {
+
+        int len = nums.size();
+        
+        int pivot = pivotIndex(nums);
+
+        if(target >= nums[pivot] && target <= nums[len-1]){
+            return binarySearch(nums, pivot, len-1, target);
+        }
+
+        return binarySearch(nums, 0, pivot-1, target);
+    }
+};
