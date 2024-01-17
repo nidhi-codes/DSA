@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+
+        int len =nums.size();
+        
+        int largest = *max_element(nums.begin(), nums.end());
+        int second_largest = -1;
+        int countOfLargest = 0;
+
+        for(int i=0;i<len;i++){
+
+            if(nums[i]<largest && nums[i]>second_largest){
+                second_largest = nums[i];
+            }
+
+            if(largest == nums[i]){
+                countOfLargest ++;
+                if(countOfLargest == 2){
+                    return (largest-1)*(largest-1);
+                }
+            }
+
+        }
+
+        return (largest-1)*(second_largest-1);
+
+    }
+};
