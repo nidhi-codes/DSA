@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int buyChoco(vector<int>& prices, int money) {
+
+        int len = prices.size();
+        int smallest = *min_element (prices.begin(), prices.end());
+        int secondSmallest = INT_MAX;
+        int count = 0;
+
+        for(int i=0; i<len; i++){
+            if(prices[i] > smallest && secondSmallest > prices[i]){
+                secondSmallest = prices[i];
+            }
+
+            if(prices[i] == smallest){
+                count++;
+                if(count == 2){
+                    secondSmallest = smallest;
+                    break;
+                }
+            }
+        }
+
+        if((smallest+secondSmallest) <= money){
+            return money - (smallest+secondSmallest);
+        }
+
+        return money;
+
+    }
+};
