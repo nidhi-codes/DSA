@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+
+        int len = chars.size();
+        int count;
+        int index = 0;
+
+        int i=0;
+        while(i<len){
+
+            int j=i+1;
+            while(j<len && chars[i] == chars[j]){
+                j++;
+            }
+
+            count = j-i;
+
+            chars[index] = chars[i];
+            index++;
+
+            if(count>1 && count<10){
+                chars[index] = '0' + count;
+                index++;
+            }
+            else if(count>9){
+                string temp = to_string(count);
+                for(int k=0; k<temp.length(); k++){
+                    chars[index] = temp[k];
+                    index++;
+                }
+            }
+
+            i = j;
+        }
+        return index;
+    }
+};
