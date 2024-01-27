@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+
+        int size = matrix.size();
+        
+
+        int startingIndex = 0;
+        int endingIndex = size-1;
+        
+        int i=0;
+        int temp;
+        while(i<endingIndex){
+
+            for(int j=endingIndex; j>startingIndex; j--){
+                matrix[startingIndex][j] = matrix[startingIndex][j-1];
+            }
+
+            temp = matrix[startingIndex][endingIndex];
+
+            for(int j=endingIndex; j>startingIndex; j--){
+                matrix[startingIndex][j] = matrix[startingIndex][j-1];
+            }
+        }
+
+    }
+};
