@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+    void recursion(string digits, vector<string>& ans, string temp, vector<string> mapping, int index){
+
+        if(index >= digits.length()){
+            ans.push_back(temp);
+            return;
+        }
+
+        int d = digits[index] - '0';      //char to int
+        
+
+        for(int i=0; i<mapping[d].size(); i++){
+            temp += mapping[d][i];
+            recursion(digits, ans, temp, mapping, index+1);
+            temp.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        
+        vector<string> ans;
+
+        if(digits.length() < 1){
+            return ans;
+        }
+
+        string temp;
+
+        int index = 0;
+
+        vector<string> mapping = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+        recursion(digits, ans, temp, mapping, index);
+
+        return ans;
+    }
+};
