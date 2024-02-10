@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        
+        int len = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        vector<int> ans;
+        int sum = 0;
+        int arraySum = nums[0];
+
+        for(int i=1; i<=len; i++){
+            sum += i;
+        }
+
+        for(int i=1; i<len; i++){
+            if(nums[i] == nums[i-1]){
+                ans.push_back(nums[i]);
+            }
+
+            arraySum += nums[i];
+        }
+
+        int temp = sum - (arraySum - ans[0]);
+        ans.push_back(temp);
+
+        return ans;
+    }
+};
