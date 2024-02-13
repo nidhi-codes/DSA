@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> numberGame(vector<int>& nums) {
+        
+        int len = nums.size();
+        sort(nums.begin(), nums.end());
+
+        for(int i=1; i<len; i+=2){
+            swap(nums[i-1], nums[i]);
+        }
+
+        return nums;
+       
+    }
+};
