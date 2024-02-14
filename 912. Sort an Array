@@ -1,0 +1,77 @@
+class Solution {
+public:
+
+public:
+
+    void merge(vector<int> &arr, int s, int m, int e)
+    {
+        int mid = s+(e-s)/2;
+
+        int len1 = mid-s+1;
+        int len2 = e-mid;
+
+        int* arr1 = new int[len1];
+        int* arr2 = new int[len2];
+
+        for(int i=0; i<len1; i++){
+            arr1[i] = arr[s+i];
+        }
+
+        for(int i=0; i<len2; i++){
+            arr2[i] = arr[mid+1+i];
+        }
+
+        int i = 0;
+        int j = 0;
+        int index = s;
+
+        while(i<len1 && j<len2){
+
+            if(arr1[i] > arr2[j]){
+                arr[index] = arr2[j];
+                index++;
+                j++;
+            }
+            else{
+                arr[index] = arr1[i];
+                index++;
+                i++;
+            }
+        }
+
+        while(i<len1){
+            arr[index] = arr1[i];
+            index++;
+            i++;
+        }
+
+        while(i<len2){
+            arr[index] = arr2[j];
+            index++;
+            j++;
+        }   
+
+        delete []arr1;
+        delete []arr2;
+    }
+
+    void mergeSort(vector<int> &arr, int s, int e)
+    {
+        if(s>=e){
+            return;
+        }
+
+        int mid = s+(e-s)/2;
+
+        mergeSort(arr, s, mid);
+        mergeSort(arr, mid+1, e);
+
+        merge(arr, s, mid, e);
+    }
+
+    vector<int> sortArray(vector<int>& nums) {
+        
+       mergeSort(nums, 0, nums.size()-1);
+       return nums;
+    }
+};
