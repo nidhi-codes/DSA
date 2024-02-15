@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string truncateSentence(string s, int k) {
+        
+        int len = s.length();
+
+        string ans = "";
+        string temp = "";
+
+        
+        int count = 0;
+
+        int i=0;
+        while(i<len && count<k){
+
+            if(s[i] == ' '){
+                ans += temp;
+                temp = "";
+                count++;
+                   
+                if(count < k){
+                    ans += ' ';
+                }
+            }
+            else{
+                temp += s[i];
+            }
+
+            i++;
+                
+        }
+
+        if(temp != ""){
+            ans += temp;
+        }
+        return ans;
+    }
+};
