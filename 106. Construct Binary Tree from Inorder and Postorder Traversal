@@ -1,0 +1,51 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    TreeNode* recursion(vector<int> in, vector<int> post, int& postIndex, int inStart, int inEnd, int n){
+        
+        if(postIndex < 0 || inStart > inEnd){
+            return NULL;
+        }
+        
+        int node = post[postIndex--];
+        TreeNode* temp = new TreeNode(node);
+        
+        int pos = -1;
+        
+        for(int i=inStart; i<n; i++){
+            
+            if(node == in[i]){
+                pos = i;
+                break;
+            }
+        }
+        
+        temp->right = recursion(in, post, postIndex, pos+1, inEnd, n);
+        temp->left = recursion(in, post, postIndex, inStart, pos-1, n);
+        
+        
+        return temp;
+        
+    }
+
+    TreeNode* buildTree(vector<int>& in, vector<int>& post) {
+        int n = post.size();
+        int postIndex = n - 1;
+        int inStart = 0;
+        int inEnd = n - 1;
+
+        TreeNode* ans = recursion(in, post, postIndex, inStart, inEnd, n);
+        return ans;
+    }
+};
