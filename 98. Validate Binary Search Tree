@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    bool recursion(TreeNode *root, int min, int max){
+    bool recursion(TreeNode *root, long min, long max){
 
         if(root == NULL){
             return true;
@@ -30,7 +30,7 @@ public:
 
     bool isValidBST(TreeNode* root) {
         
-        return recursion(root, INT_MIN, INT_MAX);
+        return recursion(root, LONG_MIN, LONG_MAX);
 
     }
 };
