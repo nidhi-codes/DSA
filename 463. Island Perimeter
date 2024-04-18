@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int islandPerimeter(vector<vector<int>>& grid) {
+        
+        int i = grid.size();
+        int j = grid[0].size();
+
+        int peri = 0;
+
+        for(int r=0; r<i; r++){
+            for(int c=0; c<j; c++){
+                if(grid[r][c] == 1){
+                    peri += 4;
+                    
+                    //top 
+                    if(r>0 && grid[r-1][c] == 1){
+                        peri -= 2;
+                    }
+
+                    //left
+                    if(c>0 && grid[r][c-1] == 1){
+                        peri -= 2;
+                    }
+                }
+            }
+        }
+
+        return peri;
+    }
+};
