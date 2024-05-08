@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& score) {
+        
+        int len = score.size();
+
+        map<int, int, greater<int>> m;
+
+        for(int i=0; i<len; i++){
+            m[score[i]] = i;
+        }
+
+        int count = 0;
+        vector<string> ans(len);
+
+        for(auto i : m){
+
+            if(count == 0){
+                ans[i.second] = "Gold Medal";
+            }
+
+            else if(count == 1){
+                ans[i.second] = "Silver Medal";
+            }
+
+            else if(count == 2){
+                ans[i.second] = "Bronze Medal";
+            }
+
+            else{
+                ans[i.second] = to_string(count+1);
+            }
+
+            count++;
+
+        }
+
+        return ans;
+    }
+};
