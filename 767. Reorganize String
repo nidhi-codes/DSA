@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string reorganizeString(string s) {
+        
+        int len = s.length();
+        string ans(len, ' ');
+        map<char, int> m;
+        priority_queue<pair<int, char>>q;
+
+        for(int i=0; i<len; i++){
+            m[s[i]]++;
+        }
+
+        for(auto i:m){
+            q.push({i.second, i.first});
+        }
+
+        int ind=0;
+        while(!q.empty()){
+            pair<int, char> t = q.top();
+            q.pop();
+            int cnt = t.first;
+            char c = t.second;
+
+            for(int i=0; i<cnt; i++){
+
+                if(ind >= len && ans[0] != c){
+                    ind = 1;
+                }
+                if(ind >= len && i<cnt){
+                    return "";
+                }
+
+                ans[ind] = c;
+                ind += 2;
+            }
+            
+        }
+
+        return ans;
+    }
+};
