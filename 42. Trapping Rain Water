@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int trap(vector<int>& h) {
+        
+        int n= h.size();
+        vector<int>leftToRight(n);
+        vector<int> rightToLeft(n);
+
+        int maxi = INT_MIN;
+        for(int i=0; i<n; i++){
+            if(h[i] > maxi){
+                maxi = h[i];
+            }
+            leftToRight[i] = maxi;
+        }        
+
+
+        maxi = INT_MIN;
+        for(int i=n-1; i>=0; i--){
+            if(h[i] > maxi){
+                maxi = h[i];
+            }
+           rightToLeft[i] = maxi;
+        } 
+
+        int ans = 0;
+
+        for(int i=0; i<n; i++){
+
+            int mini = min(rightToLeft[i], leftToRight[i]);
+
+            ans += (mini-h[i]);
+        }
+
+        return ans;
+    }
+};
