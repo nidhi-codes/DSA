@@ -1,0 +1,30 @@
+class Solution {
+public:
+
+    void solve(int index, vector<int>& arr, int sum, vector<int> temp, vector<vector<int>>& ans){
+        if(sum == 0){
+            ans.push_back(temp);
+            return;
+        }
+
+        for(int i=index; i<arr.size(); i++){
+            if(arr[i] > sum){
+                break;
+            }
+
+            temp.push_back(arr[i]);
+            solve(i, arr, sum-arr[i], temp, ans);
+            temp.pop_back();
+        }
+
+    }
+    vector<vector<int>> combinationSum(vector<int>& arr, int sum) {
+        sort(arr.begin(), arr.end());
+        vector<int>temp;
+        vector<vector<int>> ans;
+
+        int i=0;
+        solve(i, arr, sum, temp, ans);
+        return ans;
+    }
+};
