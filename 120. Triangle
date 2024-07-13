@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int solve(vector<vector<int>>& arr, int i, int j, vector<vector<int>>& dp){
+        if(i == arr.size()-1){
+            return arr[i][j];
+        }
+
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        int same_j = arr[i][j] + solve(arr, i+1, j, dp);
+        int diff_j = arr[i][j] + solve(arr, i+1, j+1, dp);
+
+        dp[i][j] = min(same_j, diff_j);
+        return dp[i][j];
+    }
+
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<vector<int>> dp(triangle.size() + 1, vector<int>(triangle.size() + 1, -1));
+        return solve(triangle, 0, 0, dp);
+    }
+};
