@@ -1,0 +1,64 @@
+class Solution {
+public:
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions) {
+        
+        vector<int> ans;
+        int len = positions.size();
+        vector<pair<int, pair<int, char>>> robot;
+
+        for(int i=0; i<len; i++){
+            robot.push_back({positions[i], {healths[i], directions[i]}});
+        }
+
+        sort(robot.begin(), robot.end());
+
+        stack<pair<int, pair<int, char>>> st;
+
+        for(int i=0; i<len; i++){
+
+            int p=robot[i].first;
+            int h=robot[i].second.first;
+            char d=robot[i].second.second;
+
+            while(!st.empty() && st.top().second.second == 'R' && d == 'L'){
+                int curr_h = st.top().second.first;
+                char curr_d = st.top().second.second;
+
+                if(curr_h == h){
+                    st.pop();
+                    h=0;
+                    break;
+                }
+                else if(curr_h > h){
+                    st.top().second.first--;
+                    h=0;
+                    break;
+                }
+                else{
+                    st.pop();
+                    h--;
+                }
+            }
+
+            if(h>0){
+                st.push({p,{h,d}});
+            }
+        } 
+
+        map<int, int> m;
+
+        while(!st.empty()){
+            m[st.top().first] = st.top().second.first;
+            st.pop();
+        }
+
+        for(int i=0; i<len; i++){
+            if(m.find(positions[i]) != m.end()){
+                ans.push_back(m[positions[i]]);
+            }
+        }
+
+        return ans;
+
+    }
+};
