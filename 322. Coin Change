@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int solve(vector<int>& arr, int amount, int i, vector<vector<int>>& dp){
+
+        if(i>=arr.size()){
+            return 1e9;
+        }
+
+        if(amount == 0){
+            return 0;
+        }
+
+        if(dp[i][amount] != -1){
+            return dp[i][amount]; 
+        }
+
+        int pick = 1e9;
+
+        if(arr[i] <= amount){
+            pick = 1+solve(arr, amount-arr[i], i, dp);
+        }
+
+        int not_pick = solve(arr, amount, i+1, dp);
+
+        dp[i][amount] = min(pick, not_pick);
+        return dp[i][amount];
+    }
+
+    int coinChange(vector<int>& arr, int amount) {
+
+        vector<vector<int>> dp(arr.size()+1, vector<int>(amount+1, -1));
+        int ans = solve(arr, amount, 0, dp);
+        if(ans == 1e9){
+            return -1;
+        }
+        return ans;
+    }
+};
