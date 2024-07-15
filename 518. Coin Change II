@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+    int solve(vector<int>& arr, int amount, int i, vector<vector<int>>& dp){
+
+        if(i>=arr.size()){
+            return 0;
+        }
+
+        if(amount == 0){
+            return 1;
+        }
+
+        if(dp[i][amount] != -1){
+            return dp[i][amount]; 
+        }
+
+        int pick = 0;
+
+        if(arr[i] <= amount){
+            pick = solve(arr, amount-arr[i], i, dp);
+        }
+
+        int not_pick = solve(arr, amount, i+1, dp);
+
+        dp[i][amount] = (pick + not_pick);
+        return dp[i][amount];
+    }
+
+    int change(int amount, vector<int>& arr) {
+        vector<vector<int>> dp(arr.size()+1, vector<int>(amount+1, -1));
+        int ans = solve(arr, amount, 0, dp);
+        if(ans == 1e9){
+            return 0;
+        }
+        return ans;
+    }
+};
