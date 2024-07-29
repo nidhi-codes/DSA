@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int dp[1001][1001][4][3];
+    int solve(vector<int>& arr, int prev, int i, int count, bool flag){
+        
+        if(count == 3){
+            return 1;
+        }
+
+        if(i >= arr.size()){
+            return 0;
+        }
+
+        if(dp[prev+1][i][count][flag] != -1){
+            return dp[prev+1][i][count][flag];
+        }
+
+        int pick=0;
+
+        if(flag){
+            if(prev == -1 || arr[prev]<arr[i]){
+                pick = solve(arr, i, i+1, count+1, true);
+            }
+        }
+        else{
+            if(prev == -1 || arr[prev]>arr[i]){
+                pick = solve(arr, i, i+1, count+1, false);
+            }
+        }
+
+        int not_pick = solve(arr, prev, i+1, count, flag);
+
+        dp[prev+1][i][count][flag] = pick+not_pick;
+        return dp[prev+1][i][count][flag];
+    }
+    int numTeams(vector<int>& rating) {
+        memset(dp, -1, sizeof(dp));
+        return  solve(rating, -1, 0, 0, true)+solve(rating, -1, 0, 0, false);
+    }
+};
