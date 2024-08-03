@@ -1,0 +1,44 @@
+class Solution {
+public:
+    void dfs(vector<vector<int>>& image, int i, int row, int j, int col, vector<vector<int>>& vis, int val){
+        
+        if(i<0 || j<0 || i>=row || j>=col){
+            return; 
+        }
+        
+        if(image[i][j] != val || vis[i][j] == 1){
+            return;
+        }
+        
+        vis[i][j] = 1;
+        
+        dfs(image, i, row, j-1, col, vis, val);
+        dfs(image, i, row, j+1, col, vis, val);
+        dfs(image, i+1, row, j, col, vis, val);
+        dfs(image, i-1, row, j, col, vis, val);
+        
+    }
+
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int row = image.size();
+        int col = image[0].size();
+        
+        vector<vector<int>>vis(row, vector<int>(col, 0));
+        
+        int val = image[sr][sc];
+        
+        dfs(image, sr, row, sc, col, vis, val);
+        
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(vis[i][j] == 1){
+                    vis[i][j] = color;
+                }
+                else{
+                    vis[i][j] = image[i][j];
+                }
+            }
+        }
+        return vis;
+    }
+};
