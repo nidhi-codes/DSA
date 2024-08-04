@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> subArray(vector<int>& nums, int n){
+
+        vector<int> ans;
+        for(int i=0; i<n; i++){
+            int sum = 0;
+            for(int j=i; j<n; j++){
+                sum += nums[j];
+                ans.push_back(sum);
+            }
+        }
+
+        return ans;
+    }
+
+    int rangeSum(vector<int>& nums, int n, int left, int right) {
+        
+        vector<int> sub_array = subArray(nums, n);
+
+        sort(sub_array.begin(), sub_array.end());
+
+        int ans = 0;
+        int mod = 1e9 + 7;
+
+        for(int i=left-1; i<right; i++){
+            ans = (ans+sub_array[i]) % mod;
+        }
+
+        return ans;
+    }
+};
