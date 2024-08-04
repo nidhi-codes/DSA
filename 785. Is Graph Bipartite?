@@ -1,0 +1,46 @@
+class Solution {
+public:
+    bool bfs(vector<vector<int>>&adj, vector<int>& color, int start){
+        queue<pair<int,int>>q;
+	    q.push({start,0});
+	    color[0] = 0;
+	    while(!q.empty()){
+	        
+	        int node = q.front().first;
+	        int c = q.front().second;
+	        q.pop();
+	        
+	        for(auto i : adj[node]){
+	            if(color[i] == -1){
+	                if(c == 0){
+	                    q.push({i, 1});
+	                    color[i] = 1;
+	                }
+	                else{
+	                    q.push({i, 0});
+	                    color[i] = 0;
+	                }
+	            }
+	            
+	            else if(color[i] == c){
+	                return false;
+	            }
+	        }
+	    }
+	    
+	    return true;
+    }
+
+    bool isBipartite(vector<vector<int>>& adj) {
+        int V = adj.size();
+        vector<int> color(V, -1);
+	    for(int i=0; i<V; i++){
+	        if(color[i] == -1){
+	            if(bfs(adj, color, i) == false){
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+    }
+};
