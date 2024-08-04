@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int rowChange[4] = {-1,0,1,0};
+    int colChange[4] = {0,1,0,-1};
+    void dfs(vector<vector<int>>& temp, int i, int j, int row, int col){
+
+        temp[i][j] = 0;
+
+        for(int in=0; in<4; in++){
+            int r = i+rowChange[in];
+            int c = j+colChange[in];
+
+            if(r>=0 && r<row && c>=0 && c<col && temp[r][c] == 1){
+                dfs(temp, r, c, row, col);
+            }
+        }
+    }
+    int numEnclaves(vector<vector<int>>& grid) {
+        int row = grid.size();
+        int col = grid[0]. size();
+        vector<vector<int>>temp = grid;
+        int count = 0;
+
+        //1st and last row
+        for(int i=0; i<col; i++){
+            if(temp[0][i] == 1){
+                dfs(temp, 0, i, row, col);
+            }
+            if(temp[row-1][i] == 1){
+                dfs(temp, row-1, i, row, col);
+            } 
+        }
+
+        //1st and last col
+        for(int i=0; i<row; i++){
+            if(temp[i][0] == 1){
+                dfs(temp, i, 0, row, col);
+            }
+            if(temp[i][col-1] == 1){
+                dfs(temp, i, col-1, row, col);
+            }
+        }
+
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(temp[i][j] == 1){
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+};
