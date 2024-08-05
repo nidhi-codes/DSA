@@ -1,0 +1,58 @@
+class Solution {
+public:
+    void topo(vector<int>* adj, vector<int>in, vector<int>& toposort){
+
+        queue<int> q;
+        q.push(0);
+
+        while(!q.empty()){
+            int node = q.front();
+            toposort.push_back(node);
+            q.pop();
+
+            for(auto i : adj[node]){
+                in[i]--;
+                if(in[i] == 0){
+                    q.push(i);
+                }
+            }
+        }
+
+    }
+    
+    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {
+        
+        vector<int> adj[n];
+        vector<int> in(n, 0);
+        vector<int> ans;
+        vector<int>toposort;
+
+
+        for(int i=0; i<n-1; i++){
+            adj[i].push_back(i+1);
+            in[i+1]++; 
+        }
+
+        for(int i=0; i<queries.size(); i++){
+            adj[queries[i][0]].push_back(queries[i][1]);
+            in[queries[i][1]]++;
+
+            topo(adj, in, toposort);
+            vector<int> dist(n, 1e9);
+
+            dist[0] = 0;
+            int dis = 0;
+
+            for(int j=0; j<n; j++){
+                int node = toposort[j];
+                for(auto it : adj[node]){
+                    dist[it] = min(dist[it], dist[node]+1);
+                }
+            }
+
+            ans.push_back(dist[n-1]);
+        }
+
+        return ans;
+    }
+};
