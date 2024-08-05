@@ -1,0 +1,51 @@
+class Solution {
+public:
+    bool canFinish(int N, vector<vector<int>>& arr) {
+        int P = arr.size();
+
+        vector<int> adj[N];
+	    
+	    for(int i=0; i<P; i++){
+	       adj[arr[i][0]].push_back(arr[i][1]);
+	    }
+	    
+	    vector<int>in(N, 0);
+	    
+	    for(int i=0; i<N; i++){
+	        for(auto j : adj[i]){
+	            in[j]++;
+	        }
+	    }
+	    
+	    queue<int>q;
+	    
+	    for(int i=0; i<N; i++){
+	        if(in[i] == 0){
+	            q.push(i);
+	        }
+	    }
+	    
+	    int cnt = 0;
+	    
+	    while(!q.empty()){
+	        
+	        int node = q.front();
+	        cnt++;
+	        q.pop();
+	        
+	        for(auto i : adj[node]){
+	            in[i]--;
+	            if(in[i] == 0){
+	                q.push(i);
+	            }
+	        }
+	    }
+	    
+	    if(cnt == N){
+	        return true;
+	    }
+	    
+	    return false;
+        
+    }
+};
