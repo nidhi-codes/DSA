@@ -1,0 +1,82 @@
+class Solution {
+public:
+    int ladderLength(string startWord, string targetWord, vector<string>& wordList) {
+        
+        int len = wordList.size();
+        
+        bool start = false;
+        int si = -1;
+        bool end = false;
+
+        for(auto i : wordList){
+            if(targetWord == i) end = true;
+            if(startWord == i) start = true;
+        }
+        
+        if(!end){
+            return 0;
+        }
+        
+        if(!start){
+            wordList.push_back(startWord);
+            len++;
+        }
+        
+        vector<int> adj[len];
+        
+        for(int i=0; i<len; i++){
+            string w = wordList[i];
+            if(w == startWord) si = i;
+            
+            for(int j=i+1; j<len; j++){
+                string w1 = wordList[j];
+                int cnt = 0;
+                
+                for(int k=0; k<w.size(); k++){
+                    if(w[k] != w1[k]) cnt++;
+                }
+                
+                if(cnt == 1){
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
+                }
+            }
+        }
+        
+        vector<int> vis(len, 0);
+        vector<int>dist(len, 1e9);
+        queue<pair<int, int>>q;
+        q.push({si, 0});
+        vis[si] = 1;
+        dist[si] = 0;
+        
+        while(!q.empty()){
+            int node = q.front().first;
+            int dis = q.front().second;
+            q.pop();
+            
+            for(auto i : adj[node]){
+                
+                if(!vis[i]){
+                    dist[i] = min(dist[i], dis+1);
+                    vis[i] = 1;
+                    q.push({i, dist[i]});
+                }
+            }
+        }
+        
+        
+        int ei;
+        
+        for(int i=0; i<len; i++){
+            if(wordList[i] == targetWord){
+                ei = i;
+                break;
+            }
+        }
+        
+        if(dist[ei] == 1e9) return 0;
+        
+        return dist[ei]+1;
+    }
+};
