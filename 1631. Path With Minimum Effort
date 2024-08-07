@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int minimumEffortPath(vector<vector<int>>& grid) {
+
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        vector<int>rowChange = {-1,0,1,0};
+        vector<int>colChange = {0,1,0,-1};
+
+        vector<vector<int>> dist(n, vector<int>(m, 1e9));
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> q;
+        
+        //diff, row, col
+        q.push({0,{0,0}});
+        dist[0][0] = 0;
+        
+        while(!q.empty()){
+            
+            int i=q.top().second.first;
+            int j=q.top().second.second;
+            int curr_diff = q.top().first;
+            q.pop();
+            
+            for(int in=0; in<4; in++){
+                
+                int nr = i+rowChange[in];
+                int nc = j+colChange[in];
+                
+                if(nr>=0 && nr<n && nc>=0 && nc<m){
+                    
+                    int new_diff = abs(grid[i][j] - grid[nr][nc]);
+                    
+                    if(max(curr_diff, new_diff) < dist[nr][nc]){
+                        dist[nr][nc] = max(curr_diff, new_diff);
+                        q.push({dist[nr][nc],{nr,nc}});
+                    }
+                }
+            }
+        }
+        
+        return dist[n-1][m-1];
+    }
+};
