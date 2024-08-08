@@ -1,0 +1,54 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        
+        vector<vector<int>> ans;
+        int r=rStart;
+        int c=cStart;
+        int count = rows*cols;
+        int visCount = 0;
+        int round = 0;
+        
+        while(visCount < count){
+            //right
+            for(int i=0; i<round+1; i++){
+                if(r>=0 && r<rows && c>=0 && c<cols ){
+                    visCount++;
+                    ans.push_back({r,c});
+                }
+                c++;
+            }
+
+            //down
+            for(int i=0; i<round+1; i++){
+                if(r>=0 && r<rows && c>=0 && c<cols ){
+                    visCount++;
+                    ans.push_back({r,c});
+                }
+                r++;
+            }
+
+            //left
+            for(int i=0; i<round+2; i++){
+                if(r>=0 && r<rows && c>=0 && c<cols ){
+                    visCount++;
+                    ans.push_back({r,c});
+                }
+                c--;
+            }
+
+            //up
+            for(int i=0; i<round+2; i++){
+                if(r>=0 && r<rows && c>=0 && c<cols ){
+                    visCount++;
+                    ans.push_back({r,c});
+                }
+                r--;
+            }
+
+            round += 2;
+        }
+
+        return ans;
+    }
+};
