@@ -1,0 +1,88 @@
+class Solution {
+public:
+    bool solve(vector<vector<int>>& grid, int r, int c){
+
+        vector<int>freq(10, 0);
+        for(int i=r; i<r+3; i++){
+            for(int j=c; j<c+3; j++){
+                if(grid[i][j]<1 ||grid[i][j]>9){
+                    return false;
+                }
+                freq[grid[i][j]]++;
+                if(freq[grid[i][j]] > 1){
+                    return false;
+                }
+            }
+        }
+
+        int sum=0;
+
+        for(int i=c; i<c+3; i++){
+            sum += grid[r][i];
+        }
+
+        //row
+        for(int i=r; i<r+3; i++){
+            int temp = 0;
+            for(int j=c; j<c+3; j++){
+                temp += grid[i][j];
+            }
+
+            if(temp != sum){
+                return false;
+            }
+        }
+
+        //col
+        for(int i=c; i<c+3; i++){
+            int temp = 0;
+            for(int j=r; j<r+3; j++){
+                temp += grid[j][i];
+            }
+
+            if(temp != sum){
+                return false;
+            }
+        }
+
+        //1st
+        int temp = 0;
+        for(int i=r, j=c; i<r+3; i++,j++){
+            temp += grid[i][j];
+        }
+        if(temp != sum){
+            return false;
+        }
+
+        //2nd
+        temp = 0;
+        for(int i=r, j=c+2; i<r+3; i++, j--){
+            temp += grid[i][j];
+        }
+        if(temp != sum){
+            return false;
+        }
+
+        return true;
+    }
+
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+        
+        int row = grid.size();;
+        int col = grid[0].size();
+
+        if(row < 3 || col < 3){
+            return 0;
+        }
+
+        int count = 0;
+        for(int i=0; i<row-2; i++){
+            for(int j=0; j<col-2; j++){
+                if(solve(grid, i, j)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};
