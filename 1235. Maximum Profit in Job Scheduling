@@ -1,0 +1,60 @@
+class Solution {
+public:
+    
+    int solve(vector<int>& startTime, vector<int>& endTime, vector<int>& profit, int i, vector<int>& dp, int n){
+
+        if(i>=n){
+            return 0;
+        }
+        
+        if(dp[i] != -1){
+            return dp[i];
+        }
+
+        int pick = 0;
+        int index = lower_bound(startTime.begin(),startTime.end() , endTime[i])-startTime.begin();
+        // while(index<n && startTime[index]<endTime[i]){
+        //     index++;
+        // }
+        
+        pick = profit[i] + solve(startTime, endTime, profit,  index, dp, n);
+        int not_pick = solve(startTime, endTime, profit, i+1, dp, n);
+        
+        dp[i] = max(pick, not_pick);
+        return dp[i];
+    }
+
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+
+        int len = startTime.size();
+        
+        vector<vector<int>> temp;
+        for(int i=0; i<len; i++){
+            temp.push_back({startTime[i], endTime[i], profit[i]});
+        }
+
+        sort(temp.begin(), temp.end());
+        for(int i=0; i<len; i++){
+            startTime[i] = temp[i][0];
+            endTime[i] = temp[i][1];
+            profit[i] = temp[i][2];
+        }
+
+        // set<pair<int, pair<int, int>>>st;
+        // for(int i=0; i<len; i++){
+        //     st.insert({startTime[i], {endTime[i], profit[i]}});
+        // }
+
+        // vector<int>s, e, p;
+        // int i=0;
+        // for(auto &it : st){
+        //     s.push_back(it.first);
+        //     e.push_back(it.second.first);
+        //     p.push_back(it.second.second);
+        //     i++;
+        // }
+
+        vector<int>dp(len+1, -1);
+        return solve(startTime, endTime, profit, 0, dp, len);
+    }
+};
