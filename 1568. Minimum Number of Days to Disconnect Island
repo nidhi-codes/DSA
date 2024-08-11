@@ -1,0 +1,65 @@
+class Solution {
+public:
+    vector<int>rc = {-1, 0, 1, 0};
+    vector<int>cc = {0, 1, 0, -1};
+
+    void dfs(vector<vector<int>>& temp, int i, int j, int n, int m){
+        if(i<0 || j<0 || i>=n || j>=m || temp[i][j] ==0){
+            return;
+        }
+
+        temp[i][j] = 0;
+        for(int in=0; in<4; in++){
+            int r=i+rc[in];
+            int c=j+cc[in];
+            dfs(temp, r, c, n, m);
+        }
+    }
+
+    int minDays(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        int cnt = 0;
+        vector<vector<int>> temp = grid;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(temp[i][j] == 1){
+                    cnt++;
+                    dfs(temp, i, j, n, m);
+                }
+            }
+        }
+
+        if(cnt != 1){
+            return 0;
+        }
+
+        temp = grid;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(temp[i][j] == 1){
+                    temp[i][j] = 0;
+                    cnt=0;
+
+                    for(int r=0; r<n; r++){
+                        for(int c=0; c<m; c++){
+                            if(temp[r][c] == 1){
+                                cnt++;
+                                if(cnt > 1) return 1;
+                                dfs(temp, r, c, n, m);
+                            }
+
+                            // if(cnt == 0) return 1;
+                        }
+                    }
+
+                    if(cnt == 0) return 1;
+                    temp = grid;
+                }
+            }
+        }
+
+        return 2;
+
+    }
+};
