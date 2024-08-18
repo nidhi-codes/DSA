@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        priority_queue<long, vector<long>, greater<long>> minHeap;
+        unordered_map<int, bool>vis;
+
+        minHeap.push(1);
+        vis[1] = true;
+        
+        int count = 0;
+        long val;
+        while(count < n){
+
+            val = minHeap.top();
+            minHeap.pop();
+
+            if(!vis[val*2]) {
+                vis[val*2] = true;
+                minHeap.push(val*2);
+            }
+            if(!vis[val*3]) {
+                vis[val*3] = true;
+                minHeap.push(val*3);
+            }
+            if(!vis[val*5]) {
+                vis[val*5] = true;
+                minHeap.push(val*5);
+            }
+            
+            count++;
+        }
+
+        return val;
+
+    }
+};
