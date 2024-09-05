@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int solve(vector<int>& nums, int start, int end, int mid){
+
+        int len1 = mid-start+1;
+        int len2 = end-mid;
+
+        vector<int>a(len1);
+        vector<int>b(len2);
+
+        int count = 0;
+
+        for(int i=0; i<len1; i++){
+            a[i] = nums[start+i];
+        }
+
+        for(int i=0; i<len2; i++){
+            b[i] = nums[mid+1+i];
+        }
+
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+
+        int i=0;
+        int j=0;
+
+        while(i<len1 && j<len2){
+
+            if((long long)a[i] > (long long)2*b[j]){
+                count += len1-i;
+                j++;
+            }
+            else{
+                i++;
+            }
+        }
+        return count;
+    }
+    int mergeSort(vector<int>& nums, int start, int end){
+
+        int count = 0;
+
+        if(start<end){
+            int mid = start+(end-start)/2;
+            count += mergeSort(nums, start, mid);
+            count += mergeSort(nums, mid+1, end);
+            count += solve(nums, start, end, mid);
+        }
+        
+        return count;        
+    }
+    int reversePairs(vector<int>& nums) {
+
+        return mergeSort(nums, 0, nums.size()-1);
+    }
+
+};
