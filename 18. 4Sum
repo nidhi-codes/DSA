@@ -1,50 +1,37 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
         vector<vector<int>>ans;
-        int n  = nums.size();
-        sort(nums.begin(),nums.end());
-       
-        for(int i = 0 ; i< n ; i++){
-            for(int j = i+1 ; j < n ; j++){
-                long long t2 = static_cast<long long>(target) - nums[i] - nums[j];
+        set<vector<int>>temp;
+
+        for(int i=0; i<n-3; i++){
+            for(int j=i+1; j<n-2; j++){
+
                 int left = j+1;
                 int right = n-1;
-               
+
                 while(left<right){
-                    if(nums[left]+nums[right] > t2){
+
+                    long long sum = (long long)nums[i]+nums[j]+nums[left]+nums[right];
+
+                    if(sum == target){
+                        temp.insert({nums[i], nums[j], nums[left], nums[right]});
+                        left++;
                         right--;
                     }
-                    else if (nums[right] + nums[left] < t2 ){
-                        left++;
-                    }
-                    else{
-                        vector<int>quad(4,0);
-                        quad[0] = nums[i];
-                        quad[1] = nums[j];
-                        quad[2] = nums[left];
-                        quad[3] = nums[right];
-                        ans.push_back(quad);
-                        while(left< right && nums[left] == quad[2]){
-                            left++;
-                        }
-                        while(left < right && nums[right]== quad[3]){
-                            right--;
-                        }
-                    }
-
+                    else if(sum < target) left++;
+                    else right--;
                 }
-
-                while(j+1<n  && nums[j+1] == nums[j]){
-                    j++;
-                }
-            }
-            while(i+1<n && nums[i+1]==nums[i]){
-                i++;
             }
         }
 
+        for(auto &i : temp){
+            ans.push_back(i);
+        }
+
         return ans;
-        
     }
 };
