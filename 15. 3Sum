@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& A) {
+
+        int n = A.size(); 
+        vector<vector<int>>ans;
+        set<vector<int>>temp;
+        sort(A.begin(), A.end());
+        
+        for(int i=0; i<n-2; i++){
+            
+            int left = i+1;
+            int right = n-1;
+            
+            while(left<right){
+                
+                int sum = A[i] + A[left] + A[right];
+                
+                if(sum == 0){
+                    temp.insert({A[i], A[left], A[right]});
+                    left++;
+                    right--;
+                }
+                
+                else if(sum < 0){
+                    left++;
+                }
+                
+                else{
+                    right--;
+                }  
+            }
+        }
+        
+        for(auto &i : temp){
+            ans.push_back(i);
+        }
+
+        return ans;
+    }
+};
