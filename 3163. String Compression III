@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string compressedString(string word) {
+        
+        int n = word.size();
+        string ans= "";
+
+        int i=0;
+        int j=0;
+
+        while(i<n){
+
+            int cnt = 0;
+            char c = word[i];
+            j=i;
+
+            while(j<n && word[j] == c){
+                cnt++;
+                j++;
+            }
+
+
+            if(cnt <= 9){
+                ans += to_string(cnt);
+                ans += c;
+            }
+            else {
+                while(cnt >= 9){
+                    ans += to_string(9);
+                    ans += c;
+                    cnt -= 9;
+                }
+
+                if(cnt>0){
+                    ans += to_string(cnt);
+                    ans += c;
+                }
+            }
+
+            i = j;
+
+
+        }
+
+        return ans;
+    }
+};
